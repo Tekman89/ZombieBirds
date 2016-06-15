@@ -2,6 +2,7 @@ package org.academiadecodigo.zombiebirds.utilities;
 
 import com.badlogic.gdx.InputProcessor;
 import org.academiadecodigo.zombiebirds.gameobjects.Bird;
+import org.academiadecodigo.zombiebirds.gameworld.GameWorld;
 
 /**
  * Created by codecadet on 13/06/16.
@@ -9,6 +10,13 @@ import org.academiadecodigo.zombiebirds.gameobjects.Bird;
 public class InputHandler implements InputProcessor {
 
     private Bird myBird;
+    GameWorld myWorld;
+
+    public InputHandler(GameWorld myWorld) {
+        // myBird now represents the gameWorld's bird.
+        this.myWorld = myWorld;
+        myBird = myWorld.getBird();
+    }
 
     // Ask for a reference to the Bird when InputHandler is created.
     public InputHandler(Bird bird) {
@@ -18,9 +26,21 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+        if (myWorld.isReady()) {
+            myWorld.start();
+        }
+
         myBird.onClick();
-        return true; // Return true to say we handled the touch.
+
+        if (myWorld.isGameOver() || myWorld.isHighScore()) {
+            // Reset all variables, go to GameState.READ
+            myWorld.restart();
+        }
+
+        return true;
     }
+
 
     @Override
     public boolean keyDown(int keycode) {

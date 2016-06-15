@@ -2,7 +2,6 @@ package org.academiadecodigo.zombiebirds.gamescreen;
 
 import com.badlogic.gdx.Gdx;
 import com.badlogic.gdx.Screen;
-import com.badlogic.gdx.graphics.GL20;
 import org.academiadecodigo.zombiebirds.gameworld.GameWorld;
 import org.academiadecodigo.zombiebirds.utilities.InputHandler;
 import org.academiadecodigo.zombiebirds.gameworld.GameRenderer;
@@ -28,7 +27,7 @@ public class GameScreen implements Screen {
         world = new GameWorld(midPointY);
         renderer = new GameRenderer(world, (int) gameHeight, midPointY);
 
-        Gdx.input.setInputProcessor(new InputHandler(world.getBird()));
+        Gdx.input.setInputProcessor(new InputHandler(world));
 
     }
 

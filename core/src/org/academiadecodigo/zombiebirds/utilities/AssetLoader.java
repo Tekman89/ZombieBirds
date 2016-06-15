@@ -1,6 +1,7 @@
 package org.academiadecodigo.zombiebirds.utilities;
 
 import com.badlogic.gdx.Gdx;
+import com.badlogic.gdx.Preferences;
 import com.badlogic.gdx.audio.Sound;
 import com.badlogic.gdx.graphics.Texture;
 import com.badlogic.gdx.graphics.g2d.Animation;
@@ -22,6 +23,9 @@ public class AssetLoader {
 
     public static Sound dead, flap, coin;
 
+    public static BitmapFont font, shadow;
+
+    public static Preferences prefs;
 
 
     public static void load() {
@@ -60,13 +64,42 @@ public class AssetLoader {
         flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));
         coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
 
+        font = new BitmapFont(Gdx.files.internal("data/text.fnt"));
+        font.getData().setScale(.25f, -.25f);
+        shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
+        shadow.getData().setScale(.25f, -.25f);
+
+        // Create (or retrieve existing) preferences file
+        prefs = Gdx.app.getPreferences("ZombieBird");
+
+        // Provide default high score of 0
+        if (!prefs.contains("highScore")) {
+            prefs.putInteger("highScore", 0);
+        }
     }
 
     public static void dispose() {
         // We must dispose of the texture when we are finished.
         texture.dispose();
+
+        // Dispose sounds
         dead.dispose();
         flap.dispose();
         coin.dispose();
+
+        font.dispose();
+        shadow.dispose();
     }
+
+    // Receives an integer and maps it to the String highScore in prefs
+    public static void setHighScore(int val) {
+        prefs.putInteger("highScore", val);
+        prefs.flush();
+    }
+
+    // Retrieves the current high score
+    public static int getHighScore() {
+        return prefs.getInteger("highScore");
+    }
+
 }

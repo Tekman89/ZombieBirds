@@ -53,7 +53,7 @@ public class Pipe extends Scrollable {
 
     @Override
     public void update(float delta) {
-        // Call the update method in the superclass (Scrollable)
+        // Call the updateRunning method in the superclass (Scrollable)
         super.update(delta);
 
         // The set() method allows you to set the top left corner's x, y
@@ -74,6 +74,11 @@ public class Pipe extends Scrollable {
         skullDown.set(position.x - (SKULL_WIDTH - width) / 2, barDown.y,
                 SKULL_WIDTH, SKULL_HEIGHT);
 
+    }
+
+    public void onRestart(float x, float scrollSpeed) {
+        velocity.x = scrollSpeed;
+        reset(x);
     }
 
     public void setScored(boolean b) {

@@ -39,6 +39,13 @@ public class Bird {
 
         if (velocity.y > 200) velocity.y = 200;
 
+
+        // CEILING CHECK
+        if (position.y < 0) {
+            position.y = 0;
+            velocity.y = 0;
+        }
+
         position.add(velocity.cpy().scl(delta));
 
         // Set the circle's center to be (9, 6) with respect to the bird.
@@ -90,6 +97,16 @@ public class Bird {
         acceleration.y = 0;
     }
 
+    public void onRestart(int y) {
+        rotation = 0;
+        position.y = y;
+        velocity.x = 0;
+        velocity.y = 0;
+        acceleration.x = 0;
+        acceleration.y = 460;
+        isAlive = true;
+    }
+
     //getters
 
     public float getX() {
@@ -119,6 +136,7 @@ public class Bird {
     public boolean isAlive() {
         return isAlive;
     }
+
 
 
 }
