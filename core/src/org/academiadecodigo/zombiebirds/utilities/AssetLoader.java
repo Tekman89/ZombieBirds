@@ -30,7 +30,7 @@ public class AssetLoader {
 
     public static void load() {
 
-        texture = new Texture(Gdx.files.internal("data/texture.png"));
+        texture = new Texture(Gdx.files.internal("core/assets/data/texture.png"));
         texture.setFilter(Texture.TextureFilter.Nearest, Texture.TextureFilter.Nearest);
 
         bg = new TextureRegion(texture, 0, 0, 136, 43);
@@ -60,13 +60,13 @@ public class AssetLoader {
         bar = new TextureRegion(texture, 136, 16, 22, 3);
         bar.flip(false, true);
 
-        dead = Gdx.audio.newSound(Gdx.files.internal("data/dead.wav"));
-        flap = Gdx.audio.newSound(Gdx.files.internal("data/flap.wav"));
-        coin = Gdx.audio.newSound(Gdx.files.internal("data/coin.wav"));
+        dead = Gdx.audio.newSound(Gdx.files.internal("core/assets/data/dead.wav"));
+        flap = Gdx.audio.newSound(Gdx.files.internal("core/assets/data/flap.wav"));
+        coin = Gdx.audio.newSound(Gdx.files.internal("core/assets/data/coin.wav"));
 
-        font = new BitmapFont(Gdx.files.internal("data/text.fnt"));
+        font = new BitmapFont(Gdx.files.internal("core/assets/data/text.fnt"));
         font.getData().setScale(.25f, -.25f);
-        shadow = new BitmapFont(Gdx.files.internal("data/shadow.fnt"));
+        shadow = new BitmapFont(Gdx.files.internal("core/assets/data/shadow.fnt"));
         shadow.getData().setScale(.25f, -.25f);
 
         // Create (or retrieve existing) preferences file

@@ -25,8 +25,8 @@ public class InputHandler implements InputProcessor {
         myBird = bird;
     }
 
-    @Override
-    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+
+    public boolean click(){
 
         if (myWorld.isReady()) {
             myWorld.start();
@@ -40,17 +40,29 @@ public class InputHandler implements InputProcessor {
         }
 
         return true;
+
+    }
+
+    @Override
+    public boolean touchDown(int screenX, int screenY, int pointer, int button) {
+        return click();
     }
 
 
     @Override
     public boolean keyDown(int keycode) {
-        if(keycode != Input.Keys.C){
-            return false;
-        }
 
-        myWorld.cheatMode();
-        return true;
+        switch (keycode){
+
+            case Input.Keys.C:
+                myWorld.cheatMode();
+                return true;
+            case Input.Keys.SPACE:
+                return click();
+            default:
+                return false;
+
+        }
 
     }
 

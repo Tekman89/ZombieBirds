@@ -215,12 +215,6 @@ public class GameRenderer {
 
             }
 
-            if(myWorld.isCheat()){
-
-                AssetLoader.shadow.draw(batcher, "Cheater", 23,76);
-                AssetLoader.font.draw(batcher, "Cheater", 24,75);
-
-            }
             // Convert integer into String
             String score = myWorld.getScore() + "";
 
