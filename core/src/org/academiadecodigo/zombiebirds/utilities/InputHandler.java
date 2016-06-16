@@ -1,5 +1,6 @@
 package org.academiadecodigo.zombiebirds.utilities;
 
+import com.badlogic.gdx.Input;
 import com.badlogic.gdx.InputProcessor;
 import org.academiadecodigo.zombiebirds.gameobjects.Bird;
 import org.academiadecodigo.zombiebirds.gameworld.GameWorld;
@@ -10,7 +11,7 @@ import org.academiadecodigo.zombiebirds.gameworld.GameWorld;
 public class InputHandler implements InputProcessor {
 
     private Bird myBird;
-    GameWorld myWorld;
+    private GameWorld myWorld;
 
     public InputHandler(GameWorld myWorld) {
         // myBird now represents the gameWorld's bird.
@@ -44,7 +45,13 @@ public class InputHandler implements InputProcessor {
 
     @Override
     public boolean keyDown(int keycode) {
-        return false;
+        if(keycode != Input.Keys.C){
+            return false;
+        }
+
+        myWorld.cheatMode();
+        return true;
+
     }
 
     @Override

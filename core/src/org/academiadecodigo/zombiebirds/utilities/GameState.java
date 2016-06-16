@@ -8,6 +8,7 @@ public enum GameState {
     READY,
     RUNNING,
     GAMEOVER,
-    HIGHSCORE;
+    HIGHSCORE,
+    CHEAT;
 
 }

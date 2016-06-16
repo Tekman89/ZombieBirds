@@ -23,6 +23,8 @@ public class GameWorld {
 
     private GameState currentState;
 
+    private boolean cheated;
+
     public GameWorld(int midPointY) {
         currentState = GameState.READY;
         this.midPointY = midPointY;
@@ -37,16 +39,25 @@ public class GameWorld {
         switch (currentState) {
             case READY:
                 updateReady(delta);
+                cheated = false;
                 break;
 
             case RUNNING:
                 updateRunning(delta);
                 break;
+
+            case CHEAT:
+                updateRunning(delta);
+                cheated = true;
+                break;
+
             default:
                 break;
         }
 
     }
+
+
 
     private void updateReady(float delta) {
         // Do nothing for now
@@ -60,7 +71,7 @@ public class GameWorld {
         bird.update(delta);
         scroller.update(delta);
 
-        if (scroller.collides(bird) && bird.isAlive()) {
+        if (scroller.collides(bird) && bird.isAlive() && currentState != GameState.CHEAT) {
             scroller.stop();
             bird.die();
             AssetLoader.dead.play();
@@ -72,7 +83,7 @@ public class GameWorld {
             bird.decelerate();
             currentState = GameState.GAMEOVER;
 
-            if (score > AssetLoader.getHighScore()) {
+            if (score > AssetLoader.getHighScore() && !hasCheated()) {
                 AssetLoader.setHighScore(score);
                 currentState = GameState.HIGHSCORE;
             }
@@ -94,6 +105,16 @@ public class GameWorld {
 
     public void addScore(int increment) {
         score += increment;
+    }
+
+    public void cheatMode() {
+
+        if(currentState == GameState.RUNNING) {
+            currentState = GameState.CHEAT;
+        } else if (currentState == GameState.CHEAT){
+            currentState = GameState.RUNNING;
+        }
+
     }
 
 
@@ -124,5 +145,12 @@ public class GameWorld {
         return currentState == GameState.HIGHSCORE;
     }
 
+    public boolean isCheat(){
+        return currentState == GameState.CHEAT;
+    }
+
+    public boolean hasCheated(){
+        return cheated;
+    }
 
 }

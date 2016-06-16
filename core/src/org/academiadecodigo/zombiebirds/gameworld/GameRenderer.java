@@ -174,7 +174,6 @@ public class GameRenderer {
                     1, 1, bird.getRotation());
         }
 
-        // TEMPORARY CODE! We will fix this section later:
 
         if (myWorld.isReady()) {
             // Draw shadow first
@@ -187,7 +186,11 @@ public class GameRenderer {
 
             if (myWorld.isGameOver() || myWorld.isHighScore()) {
 
-                if (myWorld.isGameOver()) {
+                if(myWorld.hasCheated()) {
+                    AssetLoader.shadow.draw(batcher, "Cheated!!!!", 19, 56);
+                    AssetLoader.font.draw(batcher, "Cheated!!!!", 18, 55);
+
+                } else if (myWorld.isGameOver()) {
                     AssetLoader.shadow.draw(batcher, "Game Over", 25, 56);
                     AssetLoader.font.draw(batcher, "Game Over", 24, 55);
 
@@ -202,13 +205,20 @@ public class GameRenderer {
                     // Draw text
                     AssetLoader.font.draw(batcher, highScore, (136 / 2)
                             - (3 * highScore.length() - 1), 127);
-                } else {
-                    AssetLoader.shadow.draw(batcher, "High Score!", 19, 56);
+
+                }else{AssetLoader.shadow.draw(batcher, "High Score!", 19, 56);
                     AssetLoader.font.draw(batcher, "High Score!", 18, 55);
                 }
 
                 AssetLoader.shadow.draw(batcher, "Try again?", 23, 76);
                 AssetLoader.font.draw(batcher, "Try again?", 24, 75);
+
+            }
+
+            if(myWorld.isCheat()){
+
+                AssetLoader.shadow.draw(batcher, "Cheater", 23,76);
+                AssetLoader.font.draw(batcher, "Cheater", 24,75);
 
             }
             // Convert integer into String
